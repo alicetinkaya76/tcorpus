@@ -143,17 +143,21 @@ a:hover { color: var(--gold); }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ---------------- bölümler ---------------- */
-section { padding-block: 84px; }
+/* ---------------- bölümler ----------------
+   Ritim kuralı: sayfada TEK bir "kart" dili var (proje kataloğu).
+   Diğer bölümler kutu değil, çizgiyle ayrılmış liste olarak kurulur —
+   40+ eş ağırlıklı kutu sayfayı dağınık gösteriyordu. */
+section { padding-block: 104px; }
 section.alt { background: var(--cream); }
-.sec-head { max-width: 720px; margin-bottom: 46px; }
+.sec-head { max-width: 660px; margin-bottom: 56px; }
 .sec-head .kicker {
   color: var(--gold); font-weight: 800; letter-spacing: .2em;
-  text-transform: uppercase; font-size: 12px; margin-bottom: 10px;
+  text-transform: uppercase; font-size: 12px; margin-bottom: 12px;
 }
 [dir="rtl"] .sec-head .kicker { letter-spacing: .05em; }
-.sec-head h2 { font-size: clamp(26px, 3.2vw, 38px); font-weight: 800; color: var(--navy-ink); line-height: 1.2; }
-.sec-head p { color: var(--muted); margin-top: 14px; font-size: 16.5px; }
+.sec-head h2 { font-size: clamp(27px, 3.2vw, 40px); font-weight: 800; color: var(--navy-ink); line-height: 1.18; letter-spacing: -.01em; }
+.sec-head p { color: var(--muted); margin-top: 16px; font-size: 16.5px; line-height: 1.7; }
+@media (max-width: 780px) { section { padding-block: 68px; } .sec-head { margin-bottom: 38px; } }
 
 /* proje filtreleri */
 .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px; }
@@ -166,8 +170,8 @@ section.alt { background: var(--cream); }
 .filters button:hover { border-color: var(--gold); color: var(--gold); }
 .filters button.active { background: var(--navy); border-color: var(--navy); color: #fff; }
 
-/* kart ızgarası */
-.grid { display: grid; gap: 22px; }
+/* kart ızgarası — yalnızca proje kataloğu için */
+.grid { display: grid; gap: 26px; }
 .grid.g3 { grid-template-columns: repeat(3, 1fr); }
 .grid.g2 { grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 980px) { .grid.g3 { grid-template-columns: repeat(2, 1fr); } }
@@ -175,25 +179,27 @@ section.alt { background: var(--cream); }
 
 .card {
   background: #fff; border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 26px; display: flex; flex-direction: column; gap: 12px;
-  transition: transform .18s, box-shadow .18s;
+  padding: 28px 26px; display: flex; flex-direction: column; gap: 12px;
+  transition: transform .18s, box-shadow .18s, border-color .18s;
 }
-.card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-.card h3 { font-size: 18px; font-weight: 800; color: var(--navy-ink); }
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: #d3dae6; }
+.card h3 { font-size: 18.5px; font-weight: 800; color: var(--navy-ink); line-height: 1.3; }
 .card h3 a { color: inherit; }
 .card h3 a:hover { color: var(--gold); }
-.card p { font-size: 14px; color: var(--muted); flex: 1; }
+.card p { font-size: 14.5px; line-height: 1.62; color: var(--muted); flex: 1; }
 .card .meta { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+
+/* Rozetler: kimlik taşır ama bağırmaz. */
 .badge {
-  font-size: 11px; font-weight: 800; letter-spacing: .04em;
-  padding: 4px 10px; border-radius: 999px; text-transform: uppercase;
+  font-size: 10.5px; font-weight: 700; letter-spacing: .05em;
+  padding: 3px 9px; border-radius: 6px; text-transform: uppercase;
 }
 [dir="rtl"] .badge { letter-spacing: 0; }
-.badge.live  { background: #e5f3ea; color: #17683b; }
+.badge.live  { background: #e8f4ec; color: #1c6b40; }
 .badge.beta  { background: var(--gold-tint); color: #8a6420; }
 .badge.dev   { background: var(--blue-tint); color: var(--navy); }
 .badge.arch  { background: #eef0f3; color: #6a7686; }
-.tag { font-size: 12px; color: var(--muted); }
+.tag { font-size: 12px; color: #8a94a3; }
 .card .num { font-size: 13px; color: var(--gold); font-weight: 700; }
 
 /* amiral kartları */
@@ -218,38 +224,64 @@ section.alt { background: var(--cream); }
 .flag-card .btn { align-self: flex-start; margin-top: 12px; background: rgba(255,255,255,.14); color: #fff; font-size: 14px; padding: 10px 20px; }
 .flag-card .btn:hover { background: rgba(255,255,255,.26); }
 
-/* araştırma hattı listesi */
-.rows { display: flex; flex-direction: column; gap: 14px; }
+/* Veri kataloğu ve araştırma hatları: kutu değil, çizgili tablo.
+   Bu iki bölüm eskiden 12 ayrı kart kutusuydu; liste hâline gelince
+   sayfanın ortası nefes aldı ve proje kataloğu öne çıktı. */
+.rows { display: block; border-top: 1px solid var(--line); }
 .row {
-  display: grid; grid-template-columns: 220px 1fr auto; gap: 20px;
-  align-items: center; background: #fff; border: 1px solid var(--line);
-  border-radius: var(--radius); padding: 20px 26px;
+  display: grid; grid-template-columns: 250px 1fr auto; gap: 28px;
+  align-items: baseline;
+  background: transparent; border: 0; border-bottom: 1px solid var(--line);
+  border-radius: 0; padding: 24px 2px;
+  transition: background .15s;
 }
-.row b { color: var(--navy-ink); font-size: 15.5px; }
-.row p { font-size: 13.5px; color: var(--muted); }
-@media (max-width: 780px) { .row { grid-template-columns: 1fr; gap: 8px; } }
+.row:hover { background: rgba(34,71,133,.025); }
+.row b { color: var(--navy-ink); font-size: 16px; line-height: 1.4; }
+.row p { font-size: 14.5px; line-height: 1.6; color: var(--muted); }
+/* Uzun lisans/durum etiketleri bağırmasın */
+.row .badge { text-transform: none; letter-spacing: 0; font-size: 11.5px; white-space: nowrap; }
+@media (max-width: 780px) {
+  .row { grid-template-columns: 1fr; gap: 8px; padding-block: 20px; }
+  .row .badge { justify-self: start; }
+}
 
-/* yöntem ilkeleri */
-.principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-@media (max-width: 960px) { .principles { grid-template-columns: repeat(2, 1fr); } }
+/* yöntem ilkeleri — çerçevesiz, numara taşıyıcı */
+.principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+@media (max-width: 960px) { .principles { grid-template-columns: repeat(2, 1fr); gap: 28px; } }
 @media (max-width: 560px) { .principles { grid-template-columns: 1fr; } }
-.principle { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.principle { background: transparent; border: 0; padding: 0; }
 .principle .no {
-  width: 40px; height: 40px; border-radius: 50%;
+  width: 34px; height: 34px; border-radius: 50%;
   background: var(--gold-tint); color: var(--gold);
   display: flex; align-items: center; justify-content: center;
-  font-weight: 800; margin-bottom: 14px; font-size: 16px;
+  font-weight: 800; margin-bottom: 14px; font-size: 15px;
 }
-.principle h3 { font-size: 15.5px; font-weight: 800; color: var(--navy-ink); margin-bottom: 6px; }
-.principle p { font-size: 13.5px; color: var(--muted); }
+.principle h3 { font-size: 16px; font-weight: 800; color: var(--navy-ink); margin-bottom: 8px; }
+.principle p { font-size: 14px; line-height: 1.6; color: var(--muted); }
 
-/* haber şeridi */
-.news { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-@media (max-width: 880px) { .news { grid-template-columns: 1fr; } }
-.news article { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+/* haber şeridi — üstten ince çizgi, kutu yok */
+.news { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; }
+@media (max-width: 880px) { .news { grid-template-columns: 1fr; gap: 28px; } }
+.news article {
+  background: transparent; border: 0; border-radius: 0; padding: 0;
+  border-top: 2px solid var(--navy-ink); padding-top: 16px;
+}
 .news time { font-size: 12.5px; color: var(--gold); font-weight: 700; }
-.news h3 { font-size: 16px; font-weight: 800; color: var(--navy-ink); margin: 8px 0; }
-.news p { font-size: 13.5px; color: var(--muted); }
+.news h3 { font-size: 17px; font-weight: 800; color: var(--navy-ink); margin: 8px 0; line-height: 1.35; }
+.news p { font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+/* Yayınlar ve eğitim: kart kutusu yerine ince kenar çizgisi.
+   Böylece sayfadaki tek gerçek kart ızgarası proje kataloğu olarak kalır. */
+/* TR bölüm id'leri Türkçe, EN/AR sayfalarında İngilizce — ikisi de hedefleniyor. */
+:is(#yayinlar, #publications, #egitim, #education) .card {
+  background: transparent; border: 0; border-radius: 0;
+  border-inline-start: 2px solid var(--line);
+  padding-block: 2px; padding-inline: 20px 0; gap: 10px;
+}
+:is(#yayinlar, #publications, #egitim, #education) .card:hover {
+  transform: none; box-shadow: none; border-inline-start-color: var(--gold);
+}
+:is(#yayinlar, #publications, #egitim, #education) .grid { gap: 30px 34px; }
 
 /* iletişim + footer */
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }

@@ -6,12 +6,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
 <script>
-  // Tarayıcı diline göre yönlendir; varsayılan Türkçe.
-  var l = (navigator.language || "tr").toLowerCase();
-  var hedef = "tr/";
-  if (l.indexOf("ar") === 0) hedef = "ar/";
-  else if (l.indexOf("tr") !== 0) hedef = "en/";
-  location.replace(hedef);
+  // Merkezin ana dili Türkçe: kök adres HER ZAMAN /tr/ açar.
+  // (Tarayıcı diline göre otomatik seçim bilinçli olarak kaldırıldı; İngilizce
+  // tarayıcılar da Türkçe karşılanır. EN/AR sayfaları başlıktaki dil
+  // değiştiriciden ve doğrudan bağlantıyla erişilebilir durumda.)
+  location.replace("tr/");
 </script>
 <meta http-equiv="refresh" content="0; url=tr/">
 </head>
