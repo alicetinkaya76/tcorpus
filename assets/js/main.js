@@ -20,9 +20,12 @@
      etiket <html lang> değerinden seçilir. JS kapalıysa 12 kart da görünür. */
   var GORUNUR = 6;
   var SOZLUK = {
-    tr: { ac: "Tüm projeleri göster", kapat: "Daha az göster" },
-    en: { ac: "Show all projects", kapat: "Show fewer" },
-    ar: { ac: "عرض جميع المشاريع", kapat: "عرض أقل" }
+    tr: { ac: "Tüm projeleri göster", kapat: "Daha az göster",
+          canli: "canlı platform", depo: "kaynak deposu" },
+    en: { ac: "Show all projects", kapat: "Show fewer",
+          canli: "live platform", depo: "source repository" },
+    ar: { ac: "عرض جميع المشاريع", kapat: "عرض أقل",
+          canli: "منصة تفاعلية", depo: "مستودع المصدر" }
   };
   var dil = (document.documentElement.getAttribute("lang") || "tr").slice(0, 2);
   var m = SOZLUK[dil] || SOZLUK.tr;
@@ -54,6 +57,20 @@
       acButon.setAttribute("aria-expanded", hepsiAcik ? "true" : "false");
     }
   }
+
+  /* Bağlantı türü etiketi: kart nereye götürüyor?
+     Kod deposuna giden kartla canlı uygulamaya giden kart aynı görünüyordu;
+     ziyaretçi "veritabanı"na tıklayıp GitHub deposu buluyordu. Tür adresten
+     türetilir — elle etiket girilmez, yanlış etiketlenme ihtimali yok. */
+  cards.forEach(function (c) {
+    var a = c.querySelector("h3 a[href^='http']");
+    if (!a || c.querySelector(".link-type")) return;
+    var depoMu = /^https?:\/\/github\.com\//.test(a.getAttribute("href"));
+    var et = document.createElement("span");
+    et.className = "link-type" + (depoMu ? " repo" : "");
+    et.textContent = (depoMu ? m.depo : m.canli) + " ↗";
+    c.appendChild(et);
+  });
 
   if (grid && cards.length > GORUNUR) {
     acButon = document.createElement("button");

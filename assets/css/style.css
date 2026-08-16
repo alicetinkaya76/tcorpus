@@ -213,6 +213,15 @@ section.alt { background: var(--cream); }
 .tag { font-size: 12px; color: #8a94a3; }
 .card .num { font-size: 13px; color: var(--gold); font-weight: 700; }
 
+/* Bağlantı türü — kartın nereye götürdüğünü söyler (JS üretir) */
+.link-type {
+  font-size: 12px; font-weight: 700; color: var(--navy);
+  margin-top: 2px; letter-spacing: .01em;
+}
+.link-type.repo { color: #6a7686; font-weight: 600; }
+.card:hover .link-type { color: var(--gold); }
+.card:hover .link-type.repo { color: #55606e; }
+
 /* amiral kartları */
 .flagship {
   display: grid; grid-template-columns: 1fr 1fr; gap: 26px;
